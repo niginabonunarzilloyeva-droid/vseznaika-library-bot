@@ -13,7 +13,9 @@ from telegram.ext import (
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 
 
-# ---------- Сервер для Render ----------
+# =========================
+# СЕРВЕР ДЛЯ RENDER
+# =========================
 
 class HealthHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -32,48 +34,9 @@ def run_health_server():
     server.serve_forever()
 
 
-# ---------- Главное меню ----------
-
-def main_keyboard():
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton(
-            "📚 Библиотека",
-            callback_data="library"
-        )],
-
-        [
-            InlineKeyboardButton(
-                "🔎 Найти материал",
-                callback_data="search"
-            ),
-            InlineKeyboardButton(
-                "🤖 Спросить Всезнайку",
-                callback_data="ai"
-            ),
-        ],
-
-        [
-            InlineKeyboardButton(
-                "🎁 Бесплатные материалы",
-                callback_data="free"
-            ),
-            InlineKeyboardButton(
-                "⭐ Новинки",
-                callback_data="new"
-            ),
-        ],
-
-        [InlineKeyboardButton(
-            "❤️ Моя библиотека",
-            callback_data="my_library"
-        )],
-
-        [InlineKeyboardButton(
-            "💬 Помощь",
-            callback_data="help"
-        )],
-    ])
-
+# =========================
+# ГЛАВНОЕ МЕНЮ
+# =========================
 
 MAIN_TEXT = (
     "📚 Добро пожаловать в Библиотеку Всезнайки!\n\n"
@@ -84,7 +47,160 @@ MAIN_TEXT = (
 )
 
 
-# ---------- Команда /start ----------
+def main_keyboard():
+    return InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton(
+                "📚 Библиотека",
+                callback_data="library"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "🔎 Найти материал",
+                callback_data="search"
+            ),
+            InlineKeyboardButton(
+                "🤖 Спросить Всезнайку",
+                callback_data="ai"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "🎁 Бесплатные материалы",
+                callback_data="free"
+            ),
+            InlineKeyboardButton(
+                "⭐ Новинки",
+                callback_data="new"
+            ),
+        ],
+        [
+            InlineKeyboardButton(
+                "❤️ Моя библиотека",
+                callback_data="my_library"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "💬 Помощь",
+                callback_data="help"
+            )
+        ],
+    ])
+
+
+# =========================
+# МЕНЮ БИБЛИОТЕКИ
+# =========================
+
+def library_keyboard():
+    return InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton(
+                "🎓 0 класс",
+                callback_data="grade_0"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "1️⃣ 1 класс",
+                callback_data="grade_1"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "2️⃣ 2 класс",
+                callback_data="grade_2"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "3️⃣ 3 класс",
+                callback_data="grade_3"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "4️⃣ 4 класс",
+                callback_data="grade_4"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "🧩 Универсальные материалы",
+                callback_data="universal"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "⬅️ Назад",
+                callback_data="back_main"
+            )
+        ],
+    ])
+
+
+# =========================
+# МЕНЮ 0 КЛАССА
+# =========================
+
+def grade_zero_keyboard():
+    return InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton(
+                "🔤 Обучение грамоте",
+                callback_data="g0_literacy"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "🔢 Математика",
+                callback_data="g0_math"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "🌍 Окружающий мир",
+                callback_data="g0_world"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "✂️ Творчество и аппликации",
+                callback_data="g0_creativity"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "🎮 Игры и интерактивы",
+                callback_data="g0_games"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "🖼 Наглядные материалы",
+                callback_data="g0_visuals"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "📋 Рабочие листы",
+                callback_data="g0_worksheets"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "⬅️ Назад к классам",
+                callback_data="library"
+            )
+        ],
+    ])
+
+
+# =========================
+# /START
+# =========================
 
 async def start(
     update: Update,
@@ -96,7 +212,9 @@ async def start(
     )
 
 
-# ---------- Обработка кнопок ----------
+# =========================
+# ОБРАБОТКА КНОПОК
+# =========================
 
 async def button_handler(
     update: Update,
@@ -105,66 +223,35 @@ async def button_handler(
     query = update.callback_query
     await query.answer()
 
-    # Библиотека
+    # Главное меню -> Библиотека
     if query.data == "library":
-
-        keyboard = [
-            [InlineKeyboardButton(
-                "🎓 0 класс",
-                callback_data="grade_0"
-            )],
-
-            [InlineKeyboardButton(
-                "1️⃣ 1 класс",
-                callback_data="grade_1"
-            )],
-
-            [InlineKeyboardButton(
-                "2️⃣ 2 класс",
-                callback_data="grade_2"
-            )],
-
-            [InlineKeyboardButton(
-                "3️⃣ 3 класс",
-                callback_data="grade_3"
-            )],
-
-            [InlineKeyboardButton(
-                "4️⃣ 4 класс",
-                callback_data="grade_4"
-            )],
-
-            [InlineKeyboardButton(
-                "🧩 Универсальные материалы",
-                callback_data="universal"
-            )],
-
-            [InlineKeyboardButton(
-                "⬅️ Назад",
-                callback_data="back_main"
-            )],
-        ]
-
         await query.edit_message_text(
             "📚 Библиотека материалов\n\n"
             "Выберите раздел ↓",
-            reply_markup=InlineKeyboardMarkup(keyboard)
+            reply_markup=library_keyboard()
+        )
+
+    # Библиотека -> 0 класс
+    elif query.data == "grade_0":
+        await query.edit_message_text(
+            "🎓 0 класс\n\n"
+            "Выберите предмет или тип материала ↓",
+            reply_markup=grade_zero_keyboard()
         )
 
     # Возврат в главное меню
     elif query.data == "back_main":
-
         await query.edit_message_text(
             MAIN_TEXT,
             reply_markup=main_keyboard()
         )
 
 
-# ---------- Запуск ----------
+# =========================
+# ЗАПУСК БОТА
+# =========================
 
 def main():
-
-    # Render Web Service должен видеть открытый порт
     threading.Thread(
         target=run_health_server,
         daemon=True
