@@ -252,11 +252,10 @@ async def button_handler(
                 [InlineKeyboardButton("⬅️ Назад", callback_data="grade_0")]
             ])
         )
-        elif query.data == "back_main":
-           await 
-    query.edit_message_text(
+    elif query.data == "back_main":
+        await query.edit_message_text(
             MAIN_TEXT,
-            reply_markup=main_keyboard()
+    reply_markup=main_keyboard()
         )
 
 
