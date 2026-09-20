@@ -239,9 +239,22 @@ async def button_handler(
             reply_markup=grade_zero_keyboard()
         )
 
-    # Возврат в главное меню
-    elif query.data == "back_main":
+         # 0 класс -> Обучение грамоте
+    elif query.data == "grade_0_literacy":
         await query.edit_message_text(
+            "🔤 Обучение грамоте\n\n"
+            "Выберите раздел ↓",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("🔤 Буквы и звуки", callback_data="literacy_letters")],
+                [InlineKeyboardButton("✍️ Прописи", callback_data="literacy_writing")],
+                [InlineKeyboardButton("🧩 Игры и задания", callback_data="literacy_games")],
+                [InlineKeyboardButton("📋 Рабочие листы", callback_data="literacy_worksheets")],
+                [InlineKeyboardButton("⬅️ Назад", callback_data="grade_0")]
+            ])
+        )
+        elif query.data == "back_main":
+           await 
+    query.edit_message_text(
             MAIN_TEXT,
             reply_markup=main_keyboard()
         )
