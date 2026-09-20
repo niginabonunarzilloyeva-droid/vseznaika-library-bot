@@ -25,18 +25,18 @@ class HealthHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b"Bot is running")
 
-    def log_message(self, format, *args):
+def log_message(self, format, *args):
         pass
-        
-        
-        
-    def run_health_server():    
+
+
+def run_health_server():
     port = int(os.environ.get("PORT", "10000"))
     server = HTTPServer(("0.0.0.0", port), HealthHandler)
     server.serve_forever()
-    
+
+
 def get_material_files(prefix):
-    files = glob.glob(f"{prefix}_*.*") 
+    files = glob.glob(f"{prefix}_*.*")
     files.sort()
     return files
 
