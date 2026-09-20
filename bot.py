@@ -240,7 +240,7 @@ async def button_handler(
         )
 
          # 0 класс -> Обучение грамоте
-    elif query.data == "grade_0_literacy":
+    elif query.data == "g0_literacy":
         await query.edit_message_text(
             "🔤 Обучение грамоте\n\n"
             "Выберите раздел ↓",
