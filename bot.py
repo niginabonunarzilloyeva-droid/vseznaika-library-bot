@@ -280,6 +280,17 @@ async def button_handler(
                 [InlineKeyboardButton("⬅️ Назад к буквам", callback_data="literacy_letters")]
             ])
     )
+    elif query.data == "letter_a_writing":
+        await query.edit_message_text(
+            "✍️ Прописи — буква А\n\n"
+            "Выберите материал ↓",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("📄 Пропись №1", callback_data="a_writing_1")],
+                [InlineKeyboardButton("📄 Пропись №2", callback_data="a_writing_2")],
+                [InlineKeyboardButton("📄 Пропись №3", callback_data="a_writing_3")],
+                [InlineKeyboardButton("⬅️ Назад к букве А", callback_data="letter_a")]
+            ])
+    )
     elif query.data == "back_main":
         await query.edit_message_text(
             MAIN_TEXT,
