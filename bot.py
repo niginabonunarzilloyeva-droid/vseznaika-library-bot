@@ -252,7 +252,7 @@ async def button_handler(
                 [InlineKeyboardButton("⬅️ Назад", callback_data="grade_0")]
             ])
         )
-     elif query.data == "literacy_letters":
+    elif query.data == "literacy_letters":
         await query.edit_message_text(
             "🔤 Буквы и звуки\n\n"
             "Выберите букву ↓",
