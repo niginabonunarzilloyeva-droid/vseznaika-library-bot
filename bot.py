@@ -1,9 +1,29 @@
 import os
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
+
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
+
+
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(b"Bot is running")
+
+    def log_message(self, format, *args):
+        pass
+
+
+def run_health_server():
+    port = int(os.environ.get("PORT", "10000"))
+    server = HTTPServer(("0.0.0.0", port), HealthHandler)
+    server.serve_forever()
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -36,6 +56,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
+    # Render Web Service требует открытый HTTP-порт.
+    # Сервер работает отдельно и не мешает Telegram-боту.
+    threading.Thread(
+        target=run_health_server,
+        daemon=True
+    ).start()
+
     app = Application.builder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
