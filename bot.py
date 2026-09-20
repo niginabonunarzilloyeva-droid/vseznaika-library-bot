@@ -252,6 +252,22 @@ async def button_handler(
                 [InlineKeyboardButton("⬅️ Назад", callback_data="grade_0")]
             ])
         )
+            elif query.data == "literacy_letters":
+        await query.edit_message_text(
+            "🔤 Буквы и звуки\n\n"
+            "Выберите букву ↓",
+            reply_markup=InlineKeyboardMarkup([
+                [InlineKeyboardButton("А", callback_data="letter_a")],
+                [InlineKeyboardButton("О", callback_data="letter_o")],
+                [InlineKeyboardButton("У", callback_data="letter_u")],
+                [InlineKeyboardButton("И", callback_data="letter_i")],
+                [InlineKeyboardButton("Э", callback_data="letter_e")],
+                [InlineKeyboardButton("М", callback_data="letter_m")],
+                [InlineKeyboardButton("Ы", callback_data="letter_y")],
+                [InlineKeyboardButton("П", callback_data="letter_p")],
+                [InlineKeyboardButton("⬅️ Назад", callback_data="g0_literacy")]
+            ])
+    )
     elif query.data == "back_main":
         await query.edit_message_text(
             MAIN_TEXT,
