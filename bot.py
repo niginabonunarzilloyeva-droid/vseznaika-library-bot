@@ -298,6 +298,11 @@ async def button_handler(
                 [InlineKeyboardButton("⬅️ Назад к букве А", callback_data="letter_a")]
             ])
     )
+    elif query.data == "a_writing_1":
+        await query.message.reply_document(
+        document=open("Propisi_bukva_A.pdf", "rb"),
+        caption="✍️ Прописи — буква А"
+    )
     elif query.data == "back_main":
         await query.edit_message_text(
             MAIN_TEXT,
