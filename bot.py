@@ -313,6 +313,11 @@ async def button_handler(
             document=open("Propisi_bukva_A_3.pdf", "rb"),
             caption="✍️ Пропись №3 — буква А"
 )
+    elif query.data == "letter_a_crafts":
+        await query.message.reply_document(
+            document=open("Applikatsiya_bukva_A_Akvarium.pdf", "rb"),
+            caption="✂️ Аппликация — буква А — Аквариум"
+)
     elif query.data == "back_main":
         await query.edit_message_text(
             MAIN_TEXT,
